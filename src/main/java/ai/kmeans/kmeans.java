@@ -2,12 +2,16 @@ package main.java.ai.kmeans;
 
 import main.java.datageneration.DataPoint;
 
+import javax.xml.crypto.Data;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class kmeans {
+    //record iterations till convergence
+    static int iterationsTillConvergence = 0;
     //note there are 2 centroids in this implementation
 
     public static void findErrors(List<DataPoint> listOfPoints){
@@ -45,9 +49,29 @@ public class kmeans {
             }
         }
 
-        getClusterAverage(ClusterA);
-        getClusterAverage(ClusterB);
+        BigDecimal newCentroidA = getClusterAverage(ClusterA);
+        BigDecimal newCentroidB = getClusterAverage(ClusterB);
 
+        double[] newCentroids = new double[2];
+        newCentroids[0] = newCentroidA.doubleValue();
+        newCentroids[1] = newCentroidB.doubleValue();
+
+        //rerun with new centroids if average has not changed
+        iterationsTillConvergence++;
+        if(!Arrays.equals(centroids,newCentroids)) {
+            generateClusters(newCentroids, listOfPoints);
+
+        }
+        else{
+            System.out.println("Iterations Till Convergence = " + iterationsTillConvergence);
+            for (DataPoint dataPoint : ClusterA) {
+                System.out.print(dataPoint.getPressure() + ", ");
+            }
+            System.out.println();
+            for (DataPoint dataPoint : ClusterB) {
+                System.out.print(dataPoint.getPressure() + ", ");
+            }
+        }
     }
 
     private static BigDecimal getClusterAverage(List<DataPoint> clusterList) {
