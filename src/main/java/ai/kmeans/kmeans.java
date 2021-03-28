@@ -3,6 +3,7 @@ package main.java.ai.kmeans;
 import main.java.datageneration.DataPoint;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class kmeans {
@@ -19,6 +20,10 @@ public class kmeans {
     }
 
     private static void generateClusters(double[] centroids,List<DataPoint> listOfPoints ){
+        //initialise cluster lists
+        List<DataPoint> ClusterA = new ArrayList<>();
+        List<DataPoint> ClusterB = new ArrayList<>();
+
         //compute distances
         for(DataPoint dataPoint: listOfPoints){
             double pressure = dataPoint.getPressure();
@@ -28,6 +33,15 @@ public class kmeans {
 
             System.out.println("Distance 1 = " + distance1);
             System.out.println("Distance 2 = " + distance2);
+
+            //place point in correct cluster
+            if( distance1.compareTo(distance2) < 0 ) {
+              ClusterA.add(dataPoint);
+                System.out.println("Added to A");
+            } else {
+                ClusterB.add(dataPoint);
+                System.out.println("Added to B");
+            }
         }
     }
 
