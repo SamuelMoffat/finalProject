@@ -3,6 +3,7 @@ package main.java.ai.kmeans;
 import main.java.datageneration.DataPoint;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +44,22 @@ public class kmeans {
                 System.out.println("Added to B");
             }
         }
+
+        getClusterAverage(ClusterA);
+        getClusterAverage(ClusterB);
+
+    }
+
+    private static BigDecimal getClusterAverage(List<DataPoint> clusterList) {
+        double sum = 0;
+        int totalsize = clusterList.size();
+        for(DataPoint dataPoint: clusterList){
+            sum+=dataPoint.getPressure();
+        }
+        BigDecimal average = BigDecimal.valueOf(sum);
+        average = average.divide(BigDecimal.valueOf(totalsize),2,RoundingMode.HALF_EVEN);
+        System.out.println("AVERAGE OF CLUSTER = " + average);
+        return average;
     }
 
     private static BigDecimal calculateDistance(double centroidPressure, double dataPointPressure){
