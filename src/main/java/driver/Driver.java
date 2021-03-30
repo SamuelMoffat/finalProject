@@ -32,7 +32,7 @@ public class Driver {
 
         DataGenerator dataGenerator = new DataGenerator();
 
-        List<DataPoint> listOfPoints = dataGenerator.getListofPoints();
+        List<DataPoint> listOfPoints = dataGenerator.getListOfPoints();
 
         CsvPrinter.updateCSV(listOfPoints);
 
@@ -40,7 +40,7 @@ public class Driver {
             System.out.println(dataPoint.getPressure());
         }
 
-        kmeans.findErrors(listOfPoints);
+        Kmeans.findErrors(listOfPoints);
 
 
     }
