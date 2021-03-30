@@ -1,16 +1,12 @@
 package datageneration;
 
-import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderHeaderAware;
 import com.opencsv.bean.CsvToBeanBuilder;
 import gis.UkLocation;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class DataGenerator {
 
@@ -54,7 +50,7 @@ public class DataGenerator {
         return newPoint;
     }
 
-    public List<DataPoint> getListofPoints() {
+    public List<DataPoint> getListOfPoints() {
         return listOfPoints;
     }
 
