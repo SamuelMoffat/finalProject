@@ -1,6 +1,6 @@
-package main.java.printer;
+package printer;
 
-import main.java.datageneration.DataPoint;
+import datageneration.DataPoint;
 
 import java.io.File;
 import java.io.FileWriter;

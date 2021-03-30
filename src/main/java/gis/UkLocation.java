@@ -1,9 +1,9 @@
-package main.java.gis;
+package gis;
 
 public class UkLocation {
     float latitude;
     float longitude;
-    
+
     public float getLatitude() {
         return latitude;
     }

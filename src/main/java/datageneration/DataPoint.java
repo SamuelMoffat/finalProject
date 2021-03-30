@@ -1,4 +1,4 @@
-package main.java.datageneration;
+package datageneration;
 
 public class DataPoint {
 

@@ -1,8 +1,9 @@
-package main.java.driver;
+package driver;
 
-import main.java.datageneration.DataGenerator;
-import main.java.datageneration.DataPoint;
-import main.java.printer.CsvPrinter;
+import ai.kmeans.Kmeans;
+import datageneration.DataGenerator;
+import datageneration.DataPoint;
+import printer.CsvPrinter;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -38,6 +39,8 @@ public class Driver {
         for (DataPoint dataPoint: listOfPoints) {
             System.out.println(dataPoint.getPressure());
         }
+
+        Kmeans.findErrors(listOfPoints);
 
 
     }
