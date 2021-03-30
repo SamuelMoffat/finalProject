@@ -27,6 +27,10 @@ public class DataPoint {
     @CsvBindByPosition(position = 4)
     private LocalDate date;
 
+    //when performing analysis
+    public DataPoint(){
+    }
+    // when generating dummy data
     DataPoint(List<UkLocation> ukLocationsList){
         generatePressure();
         generateLatLong(ukLocationsList);

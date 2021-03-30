@@ -40,7 +40,9 @@ public class Driver {
             System.out.println(dataPoint.getPressure());
         }
 
-        Kmeans.findErrors(listOfPoints);
+        List<DataPoint> analysedListOfPoints = Kmeans.findErrors(listOfPoints);
+        //print output
+        CsvPrinter.updateCSV(analysedListOfPoints);
 
 
     }

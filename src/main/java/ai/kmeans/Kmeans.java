@@ -11,10 +11,11 @@ import java.util.List;
 
 public class Kmeans {
     //record iterations till convergence
-    static int iterationsTillConvergence = 0;
+    private static int iterationsTillConvergence = 0;
     //note there are 2 centroids in this implementation
+    private static List<DataPoint> analysedListOfPoints = new ArrayList<>();
 
-    public static void findErrors(List<DataPoint> listOfPoints){
+    public static List<DataPoint> findErrors(List<DataPoint> listOfPoints){
         //first select centroid data points
         double[] centroids = generateCentroids(listOfPoints);
         System.out.println("CENTROIDS");
@@ -22,6 +23,7 @@ public class Kmeans {
             System.out.println(centroid);
         }
         generateClusters(centroids,listOfPoints);
+        return analysedListOfPoints;
     }
 
     private static void generateClusters(double[] centroids,List<DataPoint> listOfPoints ){
@@ -65,10 +67,16 @@ public class Kmeans {
         else{
             System.out.println("Iterations Till Convergence = " + iterationsTillConvergence);
             for (DataPoint dataPoint : ClusterA) {
+                KmeansDataPoint analysedPoint = new KmeansDataPoint(dataPoint);
+                analysedPoint.setClusterAssigned("A");
+                analysedListOfPoints.add(analysedPoint);
                 System.out.print(dataPoint.getPressure() + ", ");
             }
             System.out.println();
             for (DataPoint dataPoint : ClusterB) {
+                KmeansDataPoint analysedPoint = new KmeansDataPoint(dataPoint);
+                analysedPoint.setClusterAssigned("B");
+                analysedListOfPoints.add(analysedPoint);
                 System.out.print(dataPoint.getPressure() + ", ");
             }
         }
