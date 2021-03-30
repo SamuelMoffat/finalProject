@@ -1,15 +1,33 @@
-package main.java.datageneration;
+package datageneration;
 
+import com.opencsv.bean.CsvToBeanBuilder;
+import gis.UkLocation;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataGenerator {
 
     List<DataPoint> listOfPoints;
+    List<UkLocation> ukLocationsList;
 
 
     public DataGenerator(){
-        generateData();
+        //get list of uk coordinates
+        String coordinates = "src/main/resources/Wards_(December_2017)_Boundaries_in_the_UK_(WGS84).csv";
+        // if file not found then datapoints cannot be made
+        try {
+            ukLocationsList = new CsvToBeanBuilder(new FileReader(coordinates))
+                    .withType(UkLocation.class).build().parse();
+
+            generateData();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -27,12 +45,12 @@ public class DataGenerator {
     }
 
     private DataPoint createPoint(){
-        DataPoint newPoint = new DataPoint();
+        DataPoint newPoint = new DataPoint(ukLocationsList);
 
         return newPoint;
     }
 
-    public List<DataPoint> getListofPoints() {
+    public List<DataPoint> getListOfPoints() {
         return listOfPoints;
     }
 

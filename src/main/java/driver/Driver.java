@@ -1,8 +1,9 @@
-package main.java.driver;
+package driver;
 
-import main.java.datageneration.DataGenerator;
-import main.java.datageneration.DataPoint;
-import main.java.printer.CsvPrinter;
+import ai.kmeans.Kmeans;
+import datageneration.DataGenerator;
+import datageneration.DataPoint;
+import printer.CsvPrinter;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -31,13 +32,15 @@ public class Driver {
 
         DataGenerator dataGenerator = new DataGenerator();
 
-        List<DataPoint> listOfPoints = dataGenerator.getListofPoints();
+        List<DataPoint> listOfPoints = dataGenerator.getListOfPoints();
 
         CsvPrinter.updateCSV(listOfPoints);
 
         for (DataPoint dataPoint: listOfPoints) {
             System.out.println(dataPoint.getPressure());
         }
+
+        Kmeans.findErrors(listOfPoints);
 
 
     }
@@ -62,8 +65,9 @@ public class Driver {
         try {
             FileWriter output = new FileWriter(dataPointsFile);
             // Headers
-            String header = "Pressure, Date, Lat, Long";
+            String header = "Name, Pressure, Lat, Long, Date";
             output.write(header);
+            output.write("\n");
             output.close();
         }
         catch (Exception e) {

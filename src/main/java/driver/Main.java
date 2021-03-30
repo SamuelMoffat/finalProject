@@ -1,4 +1,4 @@
-package main.java.driver;
+package driver;
 
 import java.io.File;
 

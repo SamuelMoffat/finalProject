@@ -1,28 +1,30 @@
-package main.java.printer;
+package printer;
 
-import main.java.datageneration.DataPoint;
+import com.opencsv.bean.HeaderColumnNameMappingStrategy;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.bean.comparator.LiteralComparator;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import datageneration.DataPoint;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 
 public class CsvPrinter {
 
 
     public static void updateCSV(List<DataPoint> listOfPoints) {
-        File dataPoints = new File("./dataPoints/dataPoints.csv");
+        Writer writer = null;
         try {
-            FileWriter output = new FileWriter(dataPoints, true);
-            // new line first, then write data
-            output.append("\n");
-
-            for (DataPoint dataPoint : listOfPoints) {
-                output.append(dataPoint.getPressure() + "," + dataPoint.isError());
-                output.append("\n");
-            }
-
-            output.close();
-        } catch (Exception e) {
+            writer = new FileWriter("./dataPoints/dataPoints.csv",true);
+        StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
+        beanToCsv.write(listOfPoints);
+        writer.close();
+        } catch (IOException | CsvDataTypeMismatchException | CsvRequiredFieldEmptyException e) {
             e.printStackTrace();
         }
     }
