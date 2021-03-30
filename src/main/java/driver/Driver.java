@@ -33,8 +33,8 @@ public class Driver {
         DataGenerator dataGenerator = new DataGenerator();
 
         List<DataPoint> listOfPoints = dataGenerator.getListOfPoints();
-
-        CsvPrinter.updateCSV(listOfPoints);
+        String dummyOutputFileName = "./dataPoints/dummyDataPoints.csv";
+        CsvPrinter.updateCSV(listOfPoints,dummyOutputFileName);
 
         for (DataPoint dataPoint: listOfPoints) {
             System.out.println(dataPoint.getPressure());
@@ -42,7 +42,8 @@ public class Driver {
 
         List<DataPoint> analysedListOfPoints = Kmeans.findErrors(listOfPoints);
         //print output
-        CsvPrinter.updateCSV(analysedListOfPoints);
+        String kMeansOutputFileName = "./dataPoints/kMeansDataPoints.csv";
+        CsvPrinter.updateCSV(analysedListOfPoints,kMeansOutputFileName);
 
 
     }
@@ -63,11 +64,23 @@ public class Driver {
         }
 
         // initialise a file of data points
-        File dataPointsFile = new File("./dataPoints/dataPoints.csv");
+        File dummyDataPointsFile = new File("./dataPoints/dummyDataPoints.csv");
+        try {
+            FileWriter output = new FileWriter(dummyDataPointsFile);
+            // Headers
+            String header = "Name, Pressure, Lat, Long, Date, isIntentionalError";
+            output.write(header);
+            output.write("\n");
+            output.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        File dataPointsFile = new File("./dataPoints/kMeansDataPoints.csv");
         try {
             FileWriter output = new FileWriter(dataPointsFile);
             // Headers
-            String header = "Name, Pressure, Lat, Long, Date, isIntentionalError";
+            String header = "Name, Pressure, Lat, Long, Date, isIntentionalError, ClusterAssigned";
             output.write(header);
             output.write("\n");
             output.close();
