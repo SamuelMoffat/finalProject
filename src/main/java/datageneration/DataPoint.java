@@ -21,7 +21,7 @@ public class DataPoint {
 
     @CsvBindByPosition(position = 3)
     private float longitude;
-
+    @CsvBindByPosition(position = 5)
     private boolean isError;
 
     @CsvBindByPosition(position = 4)
@@ -95,8 +95,12 @@ public class DataPoint {
         this.longitude = longitude;
     }
 
-    public boolean isError() {
+    public boolean getisError() {
         return isError;
+    }
+
+    public void setError(boolean error) {
+        isError = error;
     }
 
     public LocalDate getDate() {

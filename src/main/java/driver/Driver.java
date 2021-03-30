@@ -65,7 +65,7 @@ public class Driver {
         try {
             FileWriter output = new FileWriter(dataPointsFile);
             // Headers
-            String header = "Name, Pressure, Lat, Long, Date";
+            String header = "Name, Pressure, Lat, Long, Date, isIntentionalError";
             output.write(header);
             output.write("\n");
             output.close();
