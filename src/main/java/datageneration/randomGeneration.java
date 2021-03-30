@@ -1,6 +1,11 @@
 package datageneration;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class randomGeneration {
     private static int seed;
@@ -10,7 +15,8 @@ public class randomGeneration {
         rand = new Random();
         setSeed(seed);
         rand.setSeed(seed);
-    }
+
+}
 
     public void setSeed(int seed) {
         randomGeneration.seed = seed;
@@ -23,6 +29,14 @@ public class randomGeneration {
     static int getInt(int min, int max){
         int randInt = rand.nextInt(max-min)+min;
         return randInt;
+    }
+
+    static LocalDate getDate(LocalDate to, LocalDate from){
+        long days = from.until(to, ChronoUnit.DAYS);
+        long randomDays = ThreadLocalRandom.current().nextLong(days + 1);
+        LocalDate randomDate = from.plusDays(randomDays);
+        System.out.println(randomDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        return randomDate;
     }
 
     static double getDouble(){

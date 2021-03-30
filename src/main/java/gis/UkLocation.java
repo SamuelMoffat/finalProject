@@ -1,15 +1,23 @@
 package gis;
 
-public class UkLocation {
-    float latitude;
-    float longitude;
+import com.opencsv.bean.CsvBindByName;
 
-    public float getLatitude() {
-        return latitude;
+public class UkLocation {
+    @CsvBindByName
+    float lat;
+    @CsvBindByName
+    float longitude;
+    //this is the name of location
+    @CsvBindByName(column = "wd17nm")
+    String name;
+
+
+    public float getLat() {
+        return lat;
     }
 
-    public void setLatitude(float latitude) {
-        this.latitude = latitude;
+    public void setLat(float lat) {
+        this.lat = lat;
     }
 
     public float getLongitude() {
@@ -18,5 +26,13 @@ public class UkLocation {
 
     public void setLongitude(float longitude) {
         this.longitude = longitude;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
