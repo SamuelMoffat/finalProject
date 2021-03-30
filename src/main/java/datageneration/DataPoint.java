@@ -1,5 +1,6 @@
 package datageneration;
 
+import com.opencsv.bean.CsvBindByPosition;
 import gis.UkLocation;
 
 import java.time.LocalDate;
@@ -7,13 +8,24 @@ import java.util.List;
 
 public class DataPoint {
 
-    //measured in psi
-    private double pressure;
-    private LocalDate date;
+
+    @CsvBindByPosition(position = 0)
     private String locationName;
+
+    //measured in psi
+    @CsvBindByPosition(position = 1)
+    private double pressure;
+
+    @CsvBindByPosition(position = 2)
     private float latitude;
+
+    @CsvBindByPosition(position = 3)
     private float longitude;
+
     private boolean isError;
+
+    @CsvBindByPosition(position = 4)
+    private LocalDate date;
 
     DataPoint(List<UkLocation> ukLocationsList){
         generatePressure();
@@ -44,6 +56,9 @@ public class DataPoint {
         if(randomGeneration.determineIfError()){
             setPressure(randomGeneration.generateFluctuation(pressure));
             isError = true;
+        }
+        else{
+            isError = false;
         }
     }
 

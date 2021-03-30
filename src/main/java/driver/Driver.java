@@ -65,8 +65,9 @@ public class Driver {
         try {
             FileWriter output = new FileWriter(dataPointsFile);
             // Headers
-            String header = "Pressure, Date, Lat, Long";
+            String header = "Name, Pressure, Lat, Long, Date";
             output.write(header);
+            output.write("\n");
             output.close();
         }
         catch (Exception e) {
