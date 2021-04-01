@@ -1,9 +1,7 @@
 package datageneration;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -35,7 +33,6 @@ public class randomGeneration {
         long days = from.until(to, ChronoUnit.DAYS);
         long randomDays = ThreadLocalRandom.current().nextLong(days + 1);
         LocalDate randomDate = from.plusDays(randomDays);
-        System.out.println(randomDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         return randomDate;
     }
 

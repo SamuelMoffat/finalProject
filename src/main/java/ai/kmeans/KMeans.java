@@ -2,14 +2,13 @@ package ai.kmeans;
 
 import datageneration.DataPoint;
 
-import javax.xml.crypto.Data;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Kmeans {
+public class KMeans {
     //record iterations till convergence
     private static int iterationsTillConvergence = 0;
     //note there are 2 centroids in this implementation
@@ -18,10 +17,6 @@ public class Kmeans {
     public static List<DataPoint> findErrors(List<DataPoint> listOfPoints){
         //first select centroid data points
         double[] centroids = generateCentroids(listOfPoints);
-        System.out.println("CENTROIDS");
-        for(double centroid:centroids){
-            System.out.println(centroid);
-        }
         generateClusters(centroids,listOfPoints);
         return analysedListOfPoints;
     }
@@ -38,16 +33,11 @@ public class Kmeans {
             BigDecimal distance1 = calculateDistance(centroids[0],pressure);
             BigDecimal distance2 = calculateDistance(centroids[1],pressure);
 
-            System.out.println("Distance 1 = " + distance1);
-            System.out.println("Distance 2 = " + distance2);
-
             //place point in correct cluster
             if( distance1.compareTo(distance2) < 0 ) {
                 ClusterA.add(dataPoint);
-                System.out.println("Added to A");
             } else {
                 ClusterB.add(dataPoint);
-                System.out.println("Added to B");
             }
         }
 
@@ -65,19 +55,15 @@ public class Kmeans {
 
         }
         else{
-            System.out.println("Iterations Till Convergence = " + iterationsTillConvergence);
             for (DataPoint dataPoint : ClusterA) {
                 KmeansDataPoint analysedPoint = new KmeansDataPoint(dataPoint);
                 analysedPoint.setClusterAssigned("A");
                 analysedListOfPoints.add(analysedPoint);
-                System.out.print(dataPoint.getPressure() + ", ");
             }
-            System.out.println();
             for (DataPoint dataPoint : ClusterB) {
                 KmeansDataPoint analysedPoint = new KmeansDataPoint(dataPoint);
                 analysedPoint.setClusterAssigned("B");
                 analysedListOfPoints.add(analysedPoint);
-                System.out.print(dataPoint.getPressure() + ", ");
             }
         }
     }
@@ -90,12 +76,10 @@ public class Kmeans {
         }
         BigDecimal average = BigDecimal.valueOf(sum);
         average = average.divide(BigDecimal.valueOf(totalsize),2,RoundingMode.HALF_EVEN);
-        System.out.println("AVERAGE OF CLUSTER = " + average);
         return average;
     }
 
     private static BigDecimal calculateDistance(double centroidPressure, double dataPointPressure){
-        System.out.println(centroidPressure + " - " + dataPointPressure);
         //convert to big decimal for precision
         BigDecimal cPressure = BigDecimal.valueOf(centroidPressure);
         BigDecimal dpPressure = BigDecimal.valueOf(dataPointPressure);

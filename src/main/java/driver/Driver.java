@@ -1,6 +1,6 @@
 package driver;
 
-import ai.kmeans.Kmeans;
+import ai.kmeans.KMeans;
 import ai.knearestneighbour.KNearestNeighbour;
 import datageneration.DataGenerator;
 import datageneration.DataPoint;
@@ -39,11 +39,7 @@ public class Driver {
         String dummyOutputFileName = "./dataPoints/dummyDataPoints.csv";
         CsvPrinter.updateCSV(listOfPoints, dummyOutputFileName);
 
-        for (DataPoint dataPoint : listOfPoints) {
-            System.out.println(dataPoint.getPressure());
-        }
-
-        List<DataPoint> analysedListOfPoints = Kmeans.findErrors(listOfPoints);
+        List<DataPoint> analysedListOfPoints = KMeans.findErrors(listOfPoints);
         String kMeansOutputFileName = "./dataPoints/kMeansDataPoints.csv";
         CsvPrinter.updateCSV(analysedListOfPoints, kMeansOutputFileName);
 
