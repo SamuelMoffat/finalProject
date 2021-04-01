@@ -1,6 +1,7 @@
 package driver;
 
 import ai.kmeans.Kmeans;
+import ai.knearestneighbour.KNearestNeighbour;
 import datageneration.DataGenerator;
 import datageneration.DataPoint;
 import printer.CsvPrinter;
@@ -34,22 +35,26 @@ public class Driver {
 
         List<DataPoint> listOfPoints = dataGenerator.getListOfPoints();
         String dummyOutputFileName = "./dataPoints/dummyDataPoints.csv";
-        CsvPrinter.updateCSV(listOfPoints,dummyOutputFileName);
+        CsvPrinter.updateCSV(listOfPoints, dummyOutputFileName);
 
-        for (DataPoint dataPoint: listOfPoints) {
+        for (DataPoint dataPoint : listOfPoints) {
             System.out.println(dataPoint.getPressure());
         }
 
         List<DataPoint> analysedListOfPoints = Kmeans.findErrors(listOfPoints);
-        //print output
         String kMeansOutputFileName = "./dataPoints/kMeansDataPoints.csv";
-        CsvPrinter.updateCSV(analysedListOfPoints,kMeansOutputFileName);
+        CsvPrinter.updateCSV(analysedListOfPoints, kMeansOutputFileName);
 
+        // note - training data is needed for this analysis
+        List<DataPoint> trainingListOfPoints = dataGenerator.getTrainingListOfPoints();
+        List<DataPoint> kNNAnalysedListOfPoints = KNearestNeighbour.findErrors(listOfPoints, trainingListOfPoints);
+        String kNNOutputFileName = "./dataPoints/kNNDataPoints.csv";
+        CsvPrinter.updateCSV(kNNAnalysedListOfPoints, kNNOutputFileName);
 
     }
 
 
-    private void initialiseFiles(){
+    private void initialiseFiles() {
         // initialise a file of errors
         File csvErrors = new File("./errors/errors.csv");
         try {
@@ -58,8 +63,7 @@ public class Driver {
             String header = "File Found In, Element Found In, Error Description";
             output.write(header);
             output.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -72,8 +76,7 @@ public class Driver {
             output.write(header);
             output.write("\n");
             output.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         File dataPointsFile = new File("./dataPoints/kMeansDataPoints.csv");
@@ -84,8 +87,18 @@ public class Driver {
             output.write(header);
             output.write("\n");
             output.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch (Exception e) {
+        File kNNPointsFile = new File("./dataPoints/kNNDataPoints.csv");
+        try {
+            FileWriter output = new FileWriter(kNNPointsFile);
+            // Headers
+            String header = "Name, Pressure, Lat, Long, Date, isIntentionalError, Pressure Description";
+            output.write(header);
+            output.write("\n");
+            output.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

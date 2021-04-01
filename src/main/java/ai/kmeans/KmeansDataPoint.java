@@ -4,7 +4,7 @@ import com.opencsv.bean.CsvBindByPosition;
 import datageneration.DataPoint;
 
 public class KmeansDataPoint extends DataPoint {
-    @CsvBindByPosition(position = 6)
+    @CsvBindByPosition(position = 7)
     private String clusterAssigned;
 
     KmeansDataPoint(DataPoint dataPoint){
