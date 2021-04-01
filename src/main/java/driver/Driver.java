@@ -72,7 +72,7 @@ public class Driver {
         try {
             FileWriter output = new FileWriter(dummyDataPointsFile);
             // Headers
-            String header = "Name, Pressure, Lat, Long, Date, isIntentionalError";
+            String header = "Name, Pressure, Lat, Long, Date, isIntentionalError, Pressure Description";
             output.write(header);
             output.write("\n");
             output.close();
@@ -83,7 +83,7 @@ public class Driver {
         try {
             FileWriter output = new FileWriter(dataPointsFile);
             // Headers
-            String header = "Name, Pressure, Lat, Long, Date, isIntentionalError, ClusterAssigned";
+            String header = "Name, Pressure, Lat, Long, Date, isIntentionalError, Pressure Description, ClusterAssigned";
             output.write(header);
             output.write("\n");
             output.close();
