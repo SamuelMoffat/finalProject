@@ -17,10 +17,10 @@ import java.util.List;
 public class CsvPrinter {
 
 
-    public static void updateCSV(List<DataPoint> listOfPoints) {
+    public static void updateCSV(List<DataPoint> listOfPoints, String fileName) {
         Writer writer = null;
         try {
-            writer = new FileWriter("./dataPoints/dataPoints.csv",true);
+            writer = new FileWriter(fileName,true);
         StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build();
         beanToCsv.write(listOfPoints);
         writer.close();

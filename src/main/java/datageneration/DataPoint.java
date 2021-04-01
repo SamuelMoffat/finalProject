@@ -27,8 +27,22 @@ public class DataPoint {
     @CsvBindByPosition(position = 4)
     private LocalDate date;
 
+    //this will be filled in for supervised training data and blank for test data
+    @CsvBindByPosition(position = 6)
+    private String pressureLabel;
+
+    //when performing analysis
+    public DataPoint(){
+    }
+    // when generating dummy data
     DataPoint(List<UkLocation> ukLocationsList){
-        generatePressure();
+        generatePressure(false);
+        generateLatLong(ukLocationsList);
+        generateDate();
+    }
+    //when generating training data
+    DataPoint(List<UkLocation> ukLocationsList, boolean training){
+        generatePressure(true);
         generateLatLong(ukLocationsList);
         generateDate();
     }
@@ -49,18 +63,25 @@ public class DataPoint {
         setLocationName(randomLocation.getName());
     }
 
-    private void generatePressure(){
+    private void generatePressure(boolean training){
         setPressure(randomGeneration.generatePressure());
 
         //generate a random error sometimes
         if(randomGeneration.determineIfError()){
             setPressure(randomGeneration.generateFluctuation(pressure));
             isError = true;
+            if(training) {
+                setPressureLabel("High");
+            }
         }
         else{
             isError = false;
+            if(training) {
+                setPressureLabel("Normal");
+            }
         }
     }
+
 
 
     public void setPressure(double pressure) {
@@ -109,5 +130,13 @@ public class DataPoint {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public String getPressureLabel() {
+        return pressureLabel;
+    }
+
+    public void setPressureLabel(String pressureLabel) {
+        this.pressureLabel = pressureLabel;
     }
 }
