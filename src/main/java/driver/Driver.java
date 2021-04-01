@@ -63,13 +63,13 @@ public class Driver {
         initialiseFile(dummyDataFile,fileHeader);
 
         // initialise a file of kmeans points
-        List<String> kMeansfileHeader = fileHeader;
+        List<String> kMeansfileHeader = new ArrayList<>(fileHeader);
         kMeansfileHeader.add("Cluster Assigned");
         String kmeansDataFile = "./dataPoints/kMeansDataPoints.csv";
         initialiseFile(kmeansDataFile,kMeansfileHeader);
 
         //initialise a file of knn points
-        String knnDataFile = "./dataPoints/kMeansDataPoints.csv";
+        String knnDataFile = "./dataPoints/kNNDataPoints.csv";
         initialiseFile(knnDataFile,fileHeader);
 
     }
