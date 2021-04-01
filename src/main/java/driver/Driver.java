@@ -8,6 +8,8 @@ import printer.CsvPrinter;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Driver {
@@ -30,6 +32,10 @@ public class Driver {
     public void start(File path) {
 
         initialiseFiles();
+        List<String> fileheader = new ArrayList<>();
+        fileheader.add("gi");
+        fileheader.add("gi222");
+        initialiseFile("test",fileheader);
 
         DataGenerator dataGenerator = new DataGenerator();
 
@@ -55,47 +61,29 @@ public class Driver {
 
 
     private void initialiseFiles() {
-        // initialise a file of errors
-        File csvErrors = new File("./errors/errors.csv");
-        try {
-            FileWriter output = new FileWriter(csvErrors);
-            // Headers
-            String header = "File Found In, Element Found In, Error Description";
-            output.write(header);
-            output.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         // initialise a file of data points
-        File dummyDataPointsFile = new File("./dataPoints/dummyDataPoints.csv");
+        List<String> fileHeader = new ArrayList<>(Arrays.asList("Name","Pressure","Lat","Long","Date","isIntentionalError","Pressure Description"));
+        String dummyDataFile = "./dataPoints/dummyDataPoints.csv";
+        initialiseFile(dummyDataFile,fileHeader);
+
+        // initialise a file of kmeans points
+        List<String> kMeansfileHeader = fileHeader;
+        kMeansfileHeader.add("Cluster Assigned");
+        String kmeansDataFile = "./dataPoints/kMeansDataPoints.csv";
+        initialiseFile(kmeansDataFile,kMeansfileHeader);
+
+        //initialise a file of knn points
+        String knnDataFile = "./dataPoints/kMeansDataPoints.csv";
+        initialiseFile(knnDataFile,fileHeader);
+
+    }
+
+    private void initialiseFile(String fileName, List<String> columnNames) {
         try {
-            FileWriter output = new FileWriter(dummyDataPointsFile);
+            FileWriter output = new FileWriter(fileName);
             // Headers
-            String header = "Name, Pressure, Lat, Long, Date, isIntentionalError, Pressure Description";
-            output.write(header);
-            output.write("\n");
-            output.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        File dataPointsFile = new File("./dataPoints/kMeansDataPoints.csv");
-        try {
-            FileWriter output = new FileWriter(dataPointsFile);
-            // Headers
-            String header = "Name, Pressure, Lat, Long, Date, isIntentionalError, Pressure Description, ClusterAssigned";
-            output.write(header);
-            output.write("\n");
-            output.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        File kNNPointsFile = new File("./dataPoints/kNNDataPoints.csv");
-        try {
-            FileWriter output = new FileWriter(kNNPointsFile);
-            // Headers
-            String header = "Name, Pressure, Lat, Long, Date, isIntentionalError, Pressure Description";
-            output.write(header);
+            String objectsCommaSeparated = String.join(", ", columnNames);
+            output.write(objectsCommaSeparated);
             output.write("\n");
             output.close();
         } catch (Exception e) {
