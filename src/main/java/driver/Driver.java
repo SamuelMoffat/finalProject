@@ -32,10 +32,6 @@ public class Driver {
     public void start(File path) {
 
         initialiseFiles();
-        List<String> fileheader = new ArrayList<>();
-        fileheader.add("gi");
-        fileheader.add("gi222");
-        initialiseFile("test",fileheader);
 
         DataGenerator dataGenerator = new DataGenerator();
 
