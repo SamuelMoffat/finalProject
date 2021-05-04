@@ -13,6 +13,7 @@ public class KNearestNeighbour {
         // first find out what value k is
         int k = determineK(trainingListOfPoints);
         for (DataPoint testDataPoint : listOfPoints) {
+            //creates a list of distances between each value
             List<KNNDataPoint> distanceList = calculateDistance(trainingListOfPoints,testDataPoint);
             //sort the list according to distance
             Collections.sort(distanceList);
@@ -48,8 +49,10 @@ public class KNearestNeighbour {
     }
 
     private static int determineK (List<DataPoint> listOfPoints) {
+        // gets size of list
         double sizeDouble = listOfPoints.size();
         double root = Math.sqrt(sizeDouble);
+        //determines the size of k
         double rawK = root / 2 ;
         int num = Math.round( ( float )rawK ) ;
         if ( num%2 != 0 ) {

@@ -27,8 +27,10 @@ public class DataGenerator {
             ukLocationsList = new CsvToBeanBuilder(new FileReader(coordinates))
                     .withType(UkLocation.class).build().parse();
 
-            generateData();
-            generateTrainingData();
+            //generates random points
+            int numOfPoints = 500;
+            generateData(numOfPoints);
+            generateTrainingData(numOfPoints);
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -37,8 +39,7 @@ public class DataGenerator {
     }
 
 
-    private void generateData(){
-        int numOfPoints = 50;
+    private void generateData(int numOfPoints){
         List<DataPoint> listOfPoints = new ArrayList<>();
 
         for (int i = 0; i < numOfPoints; i++) {
@@ -47,9 +48,8 @@ public class DataGenerator {
 
         setListOfPoints(listOfPoints);
     }
-    private void generateTrainingData(){
+    private void generateTrainingData(int numOfPoints){
         //Note - Training data will explicitly state the correct label
-        int numOfPoints = 50;
         List<DataPoint> listOfPoints = new ArrayList<>();
 
         for (int i = 0; i < numOfPoints; i++) {

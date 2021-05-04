@@ -68,8 +68,10 @@ public class DataPoint {
 
         //generate a random error sometimes
         if(randomGeneration.determineIfError()){
+            // fluctuate the value if an error
             setPressure(randomGeneration.generateFluctuation(pressure));
             isError = true;
+            // if a training point explicitly state if error
             if(training) {
                 setPressureLabel("High");
             }

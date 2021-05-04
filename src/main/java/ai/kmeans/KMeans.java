@@ -40,7 +40,7 @@ public class KMeans {
                 ClusterB.add(dataPoint);
             }
         }
-
+        //get averages
         BigDecimal newCentroidA = getClusterAverage(ClusterA);
         BigDecimal newCentroidB = getClusterAverage(ClusterB);
 
